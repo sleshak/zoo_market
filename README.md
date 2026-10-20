@@ -34,3 +34,54 @@ Cеть из 20 магазинов в 5 городах Дальнего Вост
 ### Этап 5 (около >50 лет)
 
 - Замена людей роботизированными собаками
+
+
+
+@startuml
+left to right direction
+
+actor "Пользователь" as fc
+
+
+rectangle "Внешние системы"{
+  actor "Банк" as Bank <<Application>>
+   actor "Груминг-салон" as Salon <<Application>>
+    actor "Ветклиника" as Clinic <<Application>>
+     actor "Заводчик" as Breeder <<Human/System>>
+}
+
+
+rectangle "Система зоомагазина"{
+  usecase "Просмотр каталога" as UC1
+  usecase "Выбор и оплата товара" as UC2
+  usecase "Записаться на услугу" as UC3
+  usecase "Разместить услугу" as UC4  
+  usecase "Карта лояльности" as UC6
+  usecase "Доставка собак" as UC7
+  usecase "Самовывоз собак" as UC8
+  usecase "Купить кучу собак" as UC9
+  usecase "Пожертвования" as UC5
+  usecase "Поиск собак" as UC10
+  usecase "Лента рекомендаций собак" as UC11
+}
+
+fc --> UC1
+
+fc --> UC4
+fc --> UC9
+UC9 -->  UC7
+UC9 -->  UC8
+fc --> UC5
+fc --> UC6
+
+UC1 ..> UC10 : <<include>>
+UC1 ..> UC11 : <<include>>
+UC1 ..> UC2 : <<include>>
+UC9 ..> UC2 : <<include>>
+
+
+UC5 --> Bank
+UC2 --> Bank
+UC3 --> Salon
+UC3 --> Clinic
+@enduml
