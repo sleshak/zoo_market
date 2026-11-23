@@ -85,3 +85,5 @@ UC2 --> Bank
 UC3 --> Salon
 UC3 --> Clinic
 @enduml
+<img width="944" height="805" alt="image" src="https://github.com/user-attachments/assets/35c13405-6eb8-45ff-81a7-ff00390f26e0" />
+
