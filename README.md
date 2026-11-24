@@ -87,3 +87,79 @@ UC3 --> Clinic
 @enduml
 <img width="944" height="805" alt="image" src="https://github.com/user-attachments/assets/35c13405-6eb8-45ff-81a7-ff00390f26e0" />
 
+
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id integer [primary key]
+  first_nm varchar
+  last_nm varchar
+  middle_nm varchar
+  birth_dt date
+  phone_nm varchar
+  email varchar
+  address varchar
+  created_dttm datetime
+}
+
+Table Product{
+  product_id integer [primary key]
+  order_id integer [not null]
+  product_nm varchar
+  price integer
+  product_comment_id integer
+}
+
+Table Orders{
+  order_id integer [primary key]
+   user_id integer [not null]
+  product_id integer [not null]
+}
+
+Table Records{
+  record_id integer [primary key]
+  user_id integer [not null]
+  service_nm varchar
+  recording_tm date
+}
+
+Table Donats{
+  shalter_id integer [primary key]
+   user_id integer [not null]
+  shalter_nm varchar
+  donat_sum integer
+  donat_date date
+}
+
+Table Comments{
+  comment_id integer [not null]
+  user_id integer [not null]
+  user_comment varchar
+  product_id integer [not null]
+}
+
+Table Delivers{
+  delivery_id integer [primary key]
+  user_id integer [not null]
+  order_id integer [not null]
+  product_id integer [not null]
+  delivery_dt date
+}
+
+Table Favorite{
+  favorit_product_id integer [primary key]
+  user_id integer [not null]
+}
+
+Ref user_orders: Orders.user_id ?> users.id
+Ref user_records: Records.user_id ?> users.id
+Ref user_comments: Comments.user_id ?> users.id
+Ref user_donats: Donats.user_id ?> users.id
+Ref user_favorite: Favorite.user_id ?> users.id
+Ref products_order: Product.order_id ?> Orders.order_id
+
+
+Ref: "users"."id" <? "Delivers"."user_id"
+Ref: "Delivers"."order_id" <> "Orders"."product_id"
+Ref: "Comments"."product_id" ?<> "Product"."product_comment_id"
